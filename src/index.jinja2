@@ -3,6 +3,7 @@
     <head>
         <meta charset = "utf-8" />
         <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+        <meta name = "mobile-web-app-capable" content = "yes">
         <meta name = "darkreader-lock" />
 
         <!-- Discord metadata -->
@@ -26,6 +27,10 @@
                     <button id = "lookup">Search</button>
                 </div>
             </main>
+            <main data-section = "scan">
+                <canvas></canvas>
+                <a href = "/">← Cancel scan</a>
+            </main>
             <main data-section = "loading">
                 <div class = "lds-dual-ring"></div> Searching for matches
             </main>
@@ -40,6 +45,7 @@
 
             <!-- JS -->
             <script src = "/assets/cdbar.js" async defer></script>
+            <script src = "/assets/mobile.js" async defer></script>
         {% endblock %}
     </body>
 </html>
