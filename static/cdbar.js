@@ -90,7 +90,7 @@ async function perform_lookup() {
                 ? `
                     <div class = "paginator">
                         <a id = "page-back" href = "#" disabled>←</a>
-                        <span id = "page">1 / 2</span>
+                        <span id = "page">1 / ${track_pages.length}</span>
                         <a id = "page-next" href = "#"${track_pages.length === 1 ? ' disabled' : ''}>→</a>
                     </div>
                 `
