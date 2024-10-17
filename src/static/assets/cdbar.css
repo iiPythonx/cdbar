@@ -104,6 +104,11 @@ img {
     gap: 10px;
     align-items: center;
 }
+footer {
+    right: 20px;
+    bottom: 20px;
+    position: absolute;
+}
 a {
     color: #ffcb00;
     transition: color .5s ease;

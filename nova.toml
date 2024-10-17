@@ -1,5 +1,5 @@
 [project]
-mapping    = ".:.build"
+mapping    = "src:.build"
 
 [plugins.minify]
 suffixes   = [".html", ".js", ".css"]

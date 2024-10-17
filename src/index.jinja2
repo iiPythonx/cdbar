@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang = "en">
+    <head>
+        <meta charset = "utf-8" />
+        <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+        <meta name = "darkreader-lock" />
+
+        <!-- CSS -->
+        <link rel = "stylesheet" href = "assets/cdbar.css">
+        <link rel = "icon" type = "image/png" href = "assets/favicon.png">
+
+        <title>cdbar</title>
+    </head>
+    <body>
+        {% block content %}
+            <main data-section = "input">
+                <input type = "search" autocomplete = "off" placeholder = "Type in a barcode" id = "barcode" autofocus = "">
+                <div>
+                    <span id = "lookup-error"></span>
+                    <button id = "lookup">Search</button>
+                </div>
+            </main>
+            <main data-section = "loading">
+                <div class = "lds-dual-ring"></div> Searching for matches
+            </main>
+            <main data-section = "result"></main>
+
+            <!-- Footer -->
+            <footer class = "links">
+                <a href = "/about">About</a>
+                ·
+                <a href = "https://github.com/iiPythonx/cdbar">GitHub</a>
+            </footer>
+
+            <!-- JS -->
+            <script src = "assets/cdbar.js" async defer></script>
+        {% endblock %}
+    </body>
+</html>
