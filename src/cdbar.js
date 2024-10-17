@@ -23,7 +23,7 @@ function lookup_error(text) {
     if (document.querySelector(`main[data-section = "input"]`).style.display === "none") show_section("input");
 }
 
-document.getElementById("lookup").addEventListener("click", async () => {    
+async function perform_lookup() {
     const barcode = document.getElementById("barcode").value;
     if (!barcode.trim()) return lookup_error("No barcode... >:(");
     
@@ -36,7 +36,7 @@ document.getElementById("lookup").addEventListener("click", async () => {
     const result = await fetch(`/api/barcode/${barcode}`);
     setTimeout(async () => {
         if (result.status === 404) return lookup_error("No matches found. :(");
-
+    
         // Update information
         const json = await result.json();
         document.querySelector(`main[data-section = "result"]`).innerHTML = `
@@ -59,11 +59,17 @@ document.getElementById("lookup").addEventListener("click", async () => {
             <a href = "#" id = "back">← Back to search</a>
         `;
         show_section("result");
-
+    
         // Handle going back
         document.getElementById("back").addEventListener("click", () => {
             document.getElementById("barcode").value = "";
             show_section("input");
         });
     }, 500);
-});
+
+}
+
+document.getElementById("lookup").addEventListener("click", perform_lookup);
+document.getElementById("barcode").addEventListener("keyup", (e) => {
+    if (e.key === "Enter") perform_lookup();
+})
