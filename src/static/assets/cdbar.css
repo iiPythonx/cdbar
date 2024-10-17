@@ -110,11 +110,11 @@ footer {
     position: absolute;
 }
 a {
-    color: #ffcb00;
+    color: #4cb963;
     transition: color .5s ease;
 }
 a:hover {
-    color: #c5a00b
+    color: #428d53
 }
 #back {
     left: 0px;
