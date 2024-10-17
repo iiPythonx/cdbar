@@ -5,11 +5,17 @@
         <meta name = "viewport" content = "width=device-width, initial-scale=1" />
         <meta name = "darkreader-lock" />
 
-        <!-- CSS -->
-        <link rel = "stylesheet" href = "assets/cdbar.css">
-        <link rel = "icon" type = "image/png" href = "assets/favicon.png">
+        <!-- Discord metadata -->
+        <meta name = "theme-color" content = "#4cb963">
+        <meta property = "og:title" content = "cdbar{% if title %} · {{ title }}{% endif %}">
+        <meta property = "og:description" content = "Find virtually any CD by its barcode.">
+        <meta property = "og:image" content = "/assets/favicon.png">
 
-        <title>cdbar</title>
+        <!-- CSS -->
+        <link rel = "stylesheet" href = "/assets/cdbar.css">
+        <link rel = "icon" type = "image/png" href = "/assets/favicon.png">
+
+        <title>cdbar{% if title %} · {{ title }}{% endif %}</title>
     </head>
     <body>
         {% block content %}
@@ -33,7 +39,7 @@
             </footer>
 
             <!-- JS -->
-            <script src = "assets/cdbar.js" async defer></script>
+            <script src = "/assets/cdbar.js" async defer></script>
         {% endblock %}
     </body>
 </html>
