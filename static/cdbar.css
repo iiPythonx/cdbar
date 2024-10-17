@@ -93,7 +93,7 @@ img {
     display: flex;
     flex-direction: column;
 }
-.top {
+.bottom {
     display: flex;
     justify-content: space-between;
     width: 100%;

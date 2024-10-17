@@ -76,11 +76,11 @@ async function perform_lookup() {
             <div class = "header">
                 <img src = "${json.image}">
                 <div>
-                    <div class = "top">
-                        <h1>${json.title.length > 14 ? json.title.slice(0, 14) + "..." : json.title}</h1>
+                    <h1>${json.title.length > 16 ? json.title.slice(0, 16) + "..." : json.title}</h1>
+                    <div class = "bottom">
+                        <span>by ${json['artist-credit'][0].name}</span>
                         <span>${json.date}</span>
                     </div>
-                    <span>by ${json['artist-credit'][0].name}</span>
                 </div>
             </div>
             <hr>
