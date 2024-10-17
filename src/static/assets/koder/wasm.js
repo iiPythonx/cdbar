@@ -1,7 +1,7 @@
 importScripts("/assets/koder/zbar.js");
 importScripts("/assets/koder/browser.js");
 (async () => {
-    const koder = await new Koder().initialize({ wasmDirectory: "/assets/koder" });
+    const koder = await new Koder().initialize();
     self.addEventListener("message", event => {
         if ("width" in event.data && "height" in event.data) {
             this.width = event.data.width;

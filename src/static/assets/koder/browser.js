@@ -1,15 +1,12 @@
 class Koder {
-    initialize(config) {
+    initialize() {
         return (async () => {
-            console.log("Browser");
-            config ||= {};
-            const directory = config.wasmDirectory || "./wasm";
-            this.mod = await CreateKoder({locateFile: file => `${directory}/${file}`});
+            this.mod = await CreateKoder({ locateFile: file => `/assets/koder/${file}` });
             this.api = {
-                createBuffer: this.mod.cwrap('createBuffer', 'number', ['number']),
-                deleteBuffer: this.mod.cwrap('deleteBuffer', '', ['number']),
-                triggerDecode: this.mod.cwrap('triggerDecode', 'number', ['number', 'number', 'number']),
-                getScanResults: this.mod.cwrap('getScanResults', 'number', [])
+                createBuffer: this.mod.cwrap("createBuffer", "number", ["number"]),
+                deleteBuffer: this.mod.cwrap("deleteBuffer", "", ["number"]),
+                triggerDecode: this.mod.cwrap("triggerDecode", "number", ["number", "number", "number"]),
+                getScanResults: this.mod.cwrap("getScanResults", "number", [])
             };
             return this;
         })();
