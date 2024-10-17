@@ -12,15 +12,23 @@ async function api_request(endpoint, payload) {
 }
 
 export async function onRequestGet(context) {
-    const result = await api_request(`release`, { query: `barcode:${context.params.barcode}`, limit: 1 });
-    if (!result.count) return new Response(null, { status: 404 });
+    const search = await api_request("release", { query: `barcode:${context.params.barcode}`, limit: 1 });
+    if (!search.count) return new Response(null, { status: 404 });
+
+    // Fetch release info as well
+    const result = search.releases[0];
+    const release = await api_request(`release/${result.id}`, { inc: "recordings" });
+    result.media = release.media;
+
+    // Fetch cover art from LastFM
     const lastfm = await (await fetch("https://ws.audioscrobbler.com/2.0/?" + new URLSearchParams({
         method: "album.getinfo",
         api_key: "974a5ebc077564f72bd639d122479d4b",
-        artist: result.releases[0]["artist-credit"][0].name,
-        album: result.releases[0].title,
+        artist: result["artist-credit"][0].name,
+        album: result.title,
         format: "json"
     }))).json();
-    result.releases[0].image = lastfm.error ? null : lastfm.album.image[lastfm.album.image.length - 1]["#text"];
-    return new Response(JSON.stringify(result.releases[0]));
+    result.image = lastfm.error ? null : lastfm.album.image[lastfm.album.image.length - 1]["#text"];
+
+    return new Response(JSON.stringify(result));
 }
