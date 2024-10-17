@@ -1,0 +1,146 @@
+@font-face {
+    font-family: "Fredoka";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(fredoka.woff2) format("woff2");
+}
+* {
+    margin: 0px;
+    font-family: "Fredoka", sans-serif;
+}
+html, body {
+    height: 100%;
+}
+body {
+    color: #e7e5e2;
+    background-color: #181a1b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notransition {
+    transition: none;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 415px;
+    transition: opacity .5s ease;
+}
+main[data-section = "input"] {
+    align-items: end;
+}
+main[data-section = "input"] > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+main:not([data-section = "input"]) {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+main[data-section = "result"] {
+    border: 1px solid gray;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+hr {
+    width: 100%;
+}
+button {
+    width: 30%;
+    cursor: pointer;
+    background-color: #4cb963;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    transition: background-color .5s ease;
+}
+button:hover {
+    background-color: #428d53;
+}
+input {
+    width: calc(100% - 22px);
+    border-radius: 5px;
+    background: none;
+    outline: none;
+    padding: 10px;
+    color: white;
+    border: 1px solid white;
+    transition: border 1s ease;
+}
+input:focus, input:hover {
+    border-color: #686a6b;
+}
+img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+.lds-dual-ring,
+.lds-dual-ring:after {
+     box-sizing: border-box;
+}
+.lds-dual-ring {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 3.4px solid currentColor;
+    border-color: currentColor transparent currentColor transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.header {
+    gap: 28px;
+    display: flex;
+    width: 100%
+}
+.header > div {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+a {
+    color: #ffcb00;
+}
+#back {
+    left: 0px;
+    bottom: -30px;
+    position: absolute;
+    text-decoration: none;
+}
+#back:hover {
+    text-decoration: underline;
+}

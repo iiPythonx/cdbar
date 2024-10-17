@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang = "en">
+    <head>
+        <meta charset = "utf-8" />
+        <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+        <meta name = "darkreader-lock" />
+
+        <!-- CSS -->
+        <link rel = "stylesheet" href = "cdbar.css">
+
+        <title>cdbar</title>
+    </head>
+    <body>
+        <main data-section = "input">
+            <input type = "text" autocomplete = "off" placeholder = "Type in a barcode" id = "barcode" autofocus = "">
+            <div>
+                <span id = "lookup-error"></span>
+                <button id = "lookup">Search</button>
+            </div>
+        </main>
+        <main data-section = "loading">
+            <div class = "lds-dual-ring"></div> Searching for matches
+        </main>
+        <main data-section = "result"></main>
+
+        <!-- JS -->
+        <script src = "cdbar.js" async defer></script>
+    </body>
+</html>

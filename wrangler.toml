@@ -1,0 +1,10 @@
+name = "iipython-cdbar"
+pages_build_output_dir = "src"
+compatibility_date = "2024-08-21"
+
+# Fuck off Cloudflare
+send_metrics = false
+
+# Force enable keeping logs
+[observability]
+enabled = true
