@@ -47,7 +47,7 @@ async function perform_lookup() {
                     <tr>
                         <th>${track.number}</th>
                         <th>${track.title}</th>
-                        <th>${Math.floor(length / 60)}:${length % 60 < 10 ? '0' : ''}${Math.round(length % 60)}</th>
+                        <th>${!track.length ? "???" : `${Math.floor(length / 60)}:${length % 60 < 10 ? '0' : ''}${Math.round(length % 60)}`}</th>
                     </tr>
                 `);
             }
@@ -68,7 +68,7 @@ async function perform_lookup() {
                 </tr>
                 ${track_pages[page].join("")}
             `;
-            document.getElementById("page").innerText = `${page + 1} / ${track_pages.length}`;
+            if (track_pages.length > 1) document.getElementById("page").innerText = `${page + 1} / ${track_pages.length}`;
         }
 
         // Update UI
@@ -77,7 +77,7 @@ async function perform_lookup() {
                 <img src = "${json.image}">
                 <div>
                     <div class = "top">
-                        <h1>${json.title.length > 15 ? json.title.slice(0, 15) + "..." : json.title}</h1>
+                        <h1>${json.title.length > 14 ? json.title.slice(0, 14) + "..." : json.title}</h1>
                         <span>${json.date}</span>
                     </div>
                     <span>by ${json['artist-credit'][0].name}</span>
