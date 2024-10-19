@@ -1,5 +1,5 @@
-importScripts("/assets/koder/zbar.js");
-importScripts("/assets/koder/browser.js");
+importScripts("/modules/koder/zbar.js");
+importScripts("/modules/koder/browser.js");
 (async () => {
     const koder = await new Koder().initialize();
     self.addEventListener("message", event => {

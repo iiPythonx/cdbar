@@ -1,16 +1,15 @@
 // Copyright (c) 2024 iiPython
 
-// Barcode reading
-class MobileBarcodeReader {
+export class MobileBarcodeReader {
     constructor() {
         this.canvas = document.querySelector("canvas");
         this.ctx = this.canvas.getContext("2d");
         this.setup_worker();
     }
     async setup_worker() {
-        this.worker = new Worker("/assets/koder/wasm.js");
+        this.worker = new Worker("/modules/koder/wasm.js");
         this.worker.onmessage = (ev) => this.kill_worker(ev.data.data);
-        if (navigator.serviceWorker) await navigator.serviceWorker.register("/assets/koder/sw.js");
+        if (navigator.serviceWorker) await navigator.serviceWorker.register("/modules/koder/sw.js");
     }
     kill_worker(data) {
         this.worker.terminate();
@@ -55,30 +54,3 @@ class MobileBarcodeReader {
         requestAnimationFrame((t) => this.tick(t));
     }
 }
-
-// Check if we're running on mobile
-(async () => {
-    if (!(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)) return;
-    if (!((await navigator.mediaDevices.enumerateDevices()).some(d => d.kind === "videoinput"))) return;
-
-    // Setup button
-    const scan_link = document.createElement("a");
-    scan_link.classList.add("scan-btn");
-    scan_link.innerText = "Scan from camera instead.";
-    document.querySelector(`main[data-section = "input"]`).appendChild(scan_link);
-    
-    // Handle clicking
-    scan_link.addEventListener("click", () => {
-        show_section("scan");
-    
-        // Handle scanning
-        const reader = new MobileBarcodeReader();
-        reader.begin_scanning();
-    
-        // Send to the lookup
-        reader.on_barcode = (barcode) => {
-            document.getElementById("barcode").value = barcode;
-            perform_lookup();
-        };
-    });
-})();

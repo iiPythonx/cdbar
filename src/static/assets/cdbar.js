@@ -1,5 +1,7 @@
 // Copyright (c) 2024 iiPython
 
+import { lookup_barcode } from "/modules/api.js";
+
 function show_section(name) {
     for (const section of document.querySelectorAll("main")) {
         section.style.opacity = "0";
@@ -31,16 +33,15 @@ async function perform_lookup() {
     show_section("loading");
     document.getElementById("lookup-error").innerText = "";
     document.getElementById("barcode").style.borderColor = "white";
-    
+
     // Perform actual barcode lookup
-    const result = await fetch(`https://cdbar.iipython.dev/api/barcode/${barcode}`);
+    const data = await lookup_barcode(barcode);
     setTimeout(async () => {
-        if (result.status === 404) return lookup_error("No matches found. :(");
-        const json = await result.json();
+        if (!data) return lookup_error("No matches found. :(");
 
         // Handle track information
         const tracks = [];
-        for (const medium of json.media) {
+        for (const medium of data.media) {
             for (const track of medium.tracks) {
                 const length = track.length / 1000;
                 tracks.push(`
@@ -74,12 +75,12 @@ async function perform_lookup() {
         // Update UI
         document.querySelector(`main[data-section = "result"]`).innerHTML = `
             <div class = "header">
-                <img src = "${json.image}">
+                <img src = "${data.image}">
                 <div>
-                    <h1>${json.title.length > 16 ? json.title.slice(0, 16) + "..." : json.title}</h1>
+                    <h1>${data.result.title.length > 16 ? data.result.title.slice(0, 16) + "..." : data.result.title}</h1>
                     <div class = "bottom">
-                        <span>by ${json['artist-credit'][0].name}</span>
-                        <span>${json.date}</span>
+                        <span>by ${data.result['artist-credit'][0].name}</span>
+                        <span>${data.result.date}</span>
                     </div>
                 </div>
             </div>
@@ -98,9 +99,9 @@ async function perform_lookup() {
             }
             <hr>
             <div class = "links">
-                <a href = "https://musicbrainz.org/release/${json.id}">MusicBrainz</a>
+                <a href = "https://musicbrainz.org/release/${data.result.id}">MusicBrainz</a>
                 ·
-                <a href = "https://last.fm/music/${json['artist-credit'][0].name}/${json.title}">Last.fm</a>
+                <a href = "https://last.fm/music/${data.result['artist-credit'][0].name}/${data.result.title}">Last.fm</a>
             </div>
             <a href = "#" id = "back">← Back to search</a>
         `;
@@ -138,4 +139,33 @@ async function perform_lookup() {
 document.getElementById("lookup").addEventListener("click", perform_lookup);
 document.getElementById("barcode").addEventListener("keyup", (e) => {
     if (e.key === "Enter") perform_lookup();
-})
+});
+
+// Load scanner script (only if we have a camera)
+(async () => {
+    if (!(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)) return;
+    if (!((await navigator.mediaDevices.enumerateDevices()).some(d => d.kind === "videoinput"))) return;
+
+    const { MobileBarcodeReader } = await import("/modules/scanner.js");
+
+    // Setup button
+    const scan_link = document.createElement("a");
+    scan_link.classList.add("scan-btn");
+    scan_link.innerText = "Scan from camera instead.";
+    document.querySelector(`main[data-section = "input"]`).appendChild(scan_link);
+    
+    // Handle clicking
+    scan_link.addEventListener("click", () => {
+        show_section("scan");
+    
+        // Handle scanning
+        const reader = new MobileBarcodeReader();
+        reader.begin_scanning();
+    
+        // Send to the lookup
+        reader.on_barcode = (barcode) => {
+            document.getElementById("barcode").value = barcode;
+            perform_lookup();
+        };
+    });
+})();

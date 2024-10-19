@@ -1,7 +1,7 @@
 class Koder {
     initialize() {
         return (async () => {
-            this.mod = await CreateKoder({ locateFile: file => `/assets/koder/${file}` });
+            this.mod = await CreateKoder({ locateFile: file => `/modules/koder/${file}` });
             this.api = {
                 createBuffer: this.mod.cwrap("createBuffer", "number", ["number"]),
                 deleteBuffer: this.mod.cwrap("deleteBuffer", "", ["number"]),
