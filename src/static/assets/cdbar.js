@@ -56,7 +56,6 @@ async function perform_lookup() {
         const track_pages = []
         for (let i = 0; i < tracks.length; i += 10) track_pages.push(tracks.slice(i, i + 10));
 
-        var current_page = 0;
         function display_page(page) {
             if (track_pages.length > 1) {
                 while (track_pages[page].length < 10) track_pages[page].push("<tr><th>&nbsp;</th><th></th><th></th></tr>");
@@ -77,7 +76,7 @@ async function perform_lookup() {
             <div class = "header">
                 <img src = "${data.image}">
                 <div>
-                    <h1>${data.result.title.length > 16 ? data.result.title.slice(0, 16) + "..." : data.result.title}</h1>
+                    <h1>${data.result.title}</h1>
                     <div class = "bottom">
                         <span>by ${data.result['artist-credit'][0].name}</span>
                         <span>${data.result.date}</span>
@@ -117,6 +116,7 @@ async function perform_lookup() {
         display_page(0);
         if (track_pages.length > 1) {
             const back = document.getElementById("page-back"), next = document.getElementById("page-next");
+            var current_page = 0;
             back.addEventListener("click", () => {
                 if (back.hasAttribute("disabled")) return;
                 current_page--;

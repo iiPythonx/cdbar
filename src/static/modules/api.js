@@ -5,7 +5,7 @@ async function musicbrainz_request(endpoint, payload) {
         `https://musicbrainz.org/ws/2/${endpoint}?` + new URLSearchParams({ ...payload, ...{ fmt: "json" } }),
         {
             headers: {
-                "User-Agent": "cdbar/0.5.1 ( ben@iipython.dev )"
+                "User-Agent": "cdbar/0.5.2 ( ben@iipython.dev )"
             }
         }
     )).json();

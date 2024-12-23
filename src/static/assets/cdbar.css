@@ -33,7 +33,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 415px;
+    min-width: 415px;
+    max-width: 600px;
     transition: opacity .5s ease;
 }
 main[data-section = "input"] {
@@ -99,6 +100,12 @@ img {
     justify-content: center;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+.header h1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .bottom {
     display: flex;
